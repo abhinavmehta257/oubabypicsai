@@ -1,6 +1,7 @@
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { PaymentForm } from "./blocks/PaymentForm";
 import { useState, useEffect } from "react";
+import Loader from "./blocks/Loader";
 
 const Paypal = () => {
   const [clientToken, setClientToken] = useState(null);
@@ -12,7 +13,7 @@ const Paypal = () => {
     components: "hosted-fields,buttons",
     "enable-funding": "paylater,venmo",
     "data-sdk-integration-source": "integrationbuilder_ac",
-    "disable-funding": "",
+    "disable-funding": "paylater",
   };
 
   useEffect(() => {
@@ -32,7 +33,9 @@ const Paypal = () => {
           <PaymentForm />
         </PayPalScriptProvider>
       ) : (
-        <h4>WAITING ON CLIENT TOKEN</h4>
+        <div>
+          <Loader />
+        </div>
       )}
     </>
   );

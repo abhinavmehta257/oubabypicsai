@@ -58,8 +58,7 @@ function Section5() {
         Happy Couples Love <span>Our Baby pic</span>
       </h2>
       <div>
-        Don't just take our words htmlFor it. Hear what our customers have to
-        say.
+        Don't just take our words for it. Hear what our customers have to say.
       </div>
       <div className="review-container">
         <div className="left" onClick={scrollLeft}>

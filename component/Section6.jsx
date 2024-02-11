@@ -27,17 +27,17 @@ let FAQs = [
   {
     question: "Is my privacy protected?",
     answer:
-      "Yes, your email is used htmlFor the delivery of baby photos only. We will not sell your email nor send you promotional content from other brands.",
+      "Yes, your email is used for the delivery of baby photos only. We will not sell your email nor send you promotional content from other brands.",
   },
   {
     question: "Can I get a refund?",
     answer:
-      "Yes, we will refund your purchase if we deem your uploaded photos unsuitable htmlFor AI training. However, it is no longer eligible htmlFor a refund after delivery of baby photos.",
+      "Yes, we will refund your purchase if we deem your uploaded photos unsuitable for AI training. However, it is no longer eligible for a refund after delivery of baby photos.",
   },
   {
     question: "Is payment secure?",
     answer:
-      "Yes, we use Stripe htmlFor payment and do not store any of your credit card information.",
+      "Yes, we use Stripe for payment and do not store any of your credit card information.",
   },
 ];
 
@@ -46,8 +46,9 @@ function Section6() {
     <div className="section section-6">
       <h2 className="heading">Frequently Asked Questions</h2>
       <div>
-        Don't see what you want to ask here? Say <a>hey@ourbabypicai.com</a> to
-        ask us!
+        Don't see what you want to ask here? Say{" "}
+        <a href="mailto:hey@ourbabypicai.com">hey@ourbabypicai.com</a> to ask
+        us!
       </div>
       <div className="accordion">
         {FAQs.map((faq, index) => (

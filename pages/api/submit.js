@@ -17,36 +17,33 @@ export default async (req, res) => {
     return;
   }
   const form = new formidable.IncomingForm();
-  const paymentJson = await createOrder("CAPTURE").then((json) => {
-    form.parse(req, async (err, fields, files) => {
-      if (err) {
-        console.error("Error parsing form:", err);
-        res.status(500).json({ error: "Internal Server Error" });
-        return;
-      }
-      const name = fields.name;
-      const email = fields.email;
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error("Error parsing form:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    const name = fields.name;
+    const email = fields.email;
 
-      let paths = await saveFiles(files, json.id)
-        .then(async function (value) {
-          // await sendMail(value.mom_photo, value.dad_file, name, email).catch(
-          //   (err) => {
-          //     console.log(err);
-          //   }
-          // );
-          console.log(value);
-        })
-        .catch(function (err) {
-          console.log("Promise Rejected");
-          console.log(err);
-        });
-    });
-    return json;
+    let paths = await saveFiles(files, json.id)
+      .then(async function (value) {
+        // await sendMail(value.mom_photo, value.dad_file, name, email).catch(
+        //   (err) => {
+        //     console.log(err);
+        //   }
+        // );
+        console.log(value);
+      })
+      .catch(function (err) {
+        console.log("Promise Rejected");
+        console.log(err);
+      });
   });
   // Parse incoming form data using a Promise
   // fs.unlink(newPath, function (err) {
   //   if (err) return console.log(err);
   //   console.log("file deleted successfully");
   // });\
-  return res.json(paymentJson);
+  return res.json(json);
 };

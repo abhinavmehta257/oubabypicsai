@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Paypal from "./Paypal";
-
+import Loader from "./blocks/Loader";
 function Section7() {
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [dadImage, setDadImage] = useState(null);
   const [momImage, setMomImage] = useState(null);
   const [customerName, setCustomerName] = useState(null);
@@ -75,7 +76,10 @@ function Section7() {
         method: "POST",
         body: formData,
       })
-        .then((response) => response.json())
+        .then((response) => {
+          setIsFormSubmitted(true);
+          return response.json();
+        })
         .then((data) => {
           console.log(data);
         });
@@ -93,8 +97,8 @@ function Section7() {
         <div className="body">
           <div className="sub-text">
             {" "}
-            <b>Limited Time Offer:</b> $̶1̶9̶<span> $4.95</span> htmlFor 4 photos
-            of boy and 4 photos of girl delivered within an hour via email.
+            <b>Limited Time Offer:</b> $̶1̶9̶<span> $9.95</span> for 4 photos of
+            boy and 4 photos of girl delivered within an hour via email.
             One-Time Payment. No Subscription.
             <div className="list-item">
               <img src="./assets/icons/item.png" alt="" />
@@ -109,31 +113,54 @@ function Section7() {
               44,000+ Photos Already Generated 👼
             </div>
           </div>
-          <form className="form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              onChange={handleNameChange}
-              placeholder="Enter your name"
-            />
-            <input
-              type="email"
-              onChange={handleEmailChange}
-              placeholder="Enter your email"
-            />
-            <input
-              type="file"
-              onChange={handleDadImageChange}
-              accept="image/*"
-            />
-            <input
-              type="file"
-              onChange={handleMomImageChange}
-              accept="image/*"
-            />
-            {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
-            <button type="submit">Submit order $4.95</button>
-          </form>
-          <Paypal />
+          {isFormSubmitted ? (
+            <Paypal />
+          ) : (
+            <form className="form" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                onChange={handleNameChange}
+                placeholder="Enter your name"
+              />
+              <input
+                type="email"
+                onChange={handleEmailChange}
+                placeholder="Enter your email"
+              />
+              <div className="file-input">
+                <label htmlFor="momImage">
+                  {dadImage ? dadImage.name : "Daddy's image"}
+                </label>
+
+                <input
+                  type="file"
+                  onChange={handleDadImageChange}
+                  accept="image/*"
+                />
+                <div className="file-icon">
+                  <img src="/assets/icons/folder.png" alt="" srcset="" />
+                </div>
+              </div>
+              <div className="file-input">
+                <label htmlFor="momImage">
+                  {momImage ? momImage.name : "Mommy's image"}
+                </label>
+                <input
+                  name="momImage"
+                  type="file"
+                  onChange={handleMomImageChange}
+                  accept="image/*"
+                />
+                <div className="file-icon">
+                  <img src="/assets/icons/folder.png" alt="" srcset="" />
+                </div>
+              </div>
+
+              {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
+              <button type="submit">Submit order $9.95</button>
+              <p className="text-[12px] bg-black"></p>
+            </form>
+          )}
         </div>
       </div>
     </div>

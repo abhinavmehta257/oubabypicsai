@@ -64,16 +64,16 @@ const generateClientToken = async () => {
  */
 const createOrder = async (cart) => {
   // use the cart information passed from the front-end to calculate the purchase unit details
-  await main().catch((err) => console.error(err));
+  // await main().catch((err) => console.error(err));
 
   console.log(
     "shopping cart information passed from the frontend createOrder() callback:",
     cart
   );
-  const selected_product = await products.findOne({
-    product_id: cart.id,
-  });
-  console.log(selected_product);
+  // const selected_product = await products.findOne({
+  //   product_id: cart.id,
+  // });
+  // console.log(selected_product);
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`;
   const payload = {
@@ -82,7 +82,7 @@ const createOrder = async (cart) => {
       {
         amount: {
           currency_code: "USD",
-          value: "4.95",
+          value: "9.95",
         },
       },
     ],

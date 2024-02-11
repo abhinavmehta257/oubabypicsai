@@ -17,5 +17,5 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
 });
-// delete mongoose.connection.models["product"];
+delete mongoose.connection.models["product"];
 module.exports = mongoose.model("product", productSchema);
