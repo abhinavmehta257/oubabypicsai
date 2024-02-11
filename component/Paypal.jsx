@@ -34,7 +34,7 @@ const Paypal = () => {
         </PayPalScriptProvider>
       ) : (
         <div>
-          <Loader />
+          <Loader color={"primary"} />
         </div>
       )}
     </>

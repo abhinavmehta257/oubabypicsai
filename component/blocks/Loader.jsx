@@ -1,12 +1,12 @@
 import React from "react";
 
-function Loader() {
+function Loader({ color }) {
   return (
     <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div className={color}></div>
+      <div className={color}></div>
+      <div className={color}></div>
+      <div className={color}></div>
     </div>
   );
 }

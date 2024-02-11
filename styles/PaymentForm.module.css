@@ -8,7 +8,9 @@
 }
 
 .form {
-  width: 30%;
+  width: 100%;
+  max-width: 340px;
+  margin-top: 24px;
 }
 
 .input {

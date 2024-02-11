@@ -26,7 +26,10 @@ export default async (req, res) => {
     const name = fields.name;
     const email = fields.email;
 
-    let paths = await saveFiles(files, json.id)
+    let paths = await saveFiles(files, name)
+      .then((json) => {
+        console.log(json);
+      })
       .then(async function (value) {
         // await sendMail(value.mom_photo, value.dad_file, name, email).catch(
         //   (err) => {

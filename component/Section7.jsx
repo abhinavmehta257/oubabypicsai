@@ -129,7 +129,9 @@ function Section7() {
               />
               <div className="file-input">
                 <label htmlFor="momImage">
-                  {dadImage ? dadImage.name : "Daddy's image"}
+                  {dadImage
+                    ? dadImage.name.substring(0, 30) + "..."
+                    : "Daddy's image"}
                 </label>
 
                 <input
@@ -143,7 +145,9 @@ function Section7() {
               </div>
               <div className="file-input">
                 <label htmlFor="momImage">
-                  {momImage ? momImage.name : "Mommy's image"}
+                  {momImage
+                    ? momImage.name.substring(0, 30) + "..."
+                    : "Mommy's image"}
                 </label>
                 <input
                   name="momImage"
@@ -157,7 +161,13 @@ function Section7() {
               </div>
 
               {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
-              <button type="submit">Submit order $9.95</button>
+              <button type="submit">
+                {isFormSubmitted ? (
+                  <Loader color={"white"} />
+                ) : (
+                  "Submit order $9.95"
+                )}
+              </button>
               <p className="text-[12px] bg-black"></p>
             </form>
           )}
