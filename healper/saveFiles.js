@@ -6,15 +6,20 @@ export default function saveFiles(files, id) {
     async (resolve, reject) => {
       try {
         const momImage = files.momImage;
-        const newMomFileName = `uploaded_mom_${id}.${
-          momImage.name.split(".").reverse()[0]
-        }`;
+        const dadImage = files.dadImage;
+        console.log(momImage[0].filepath, dadImage[0].filepath, id);
+
+        const momFileExtension = momImage[0].originalFilename
+          .split(".")
+          .reverse()[0];
+        const dadFileExtension = dadImage[0].originalFilename
+          .split(".")
+          .reverse()[0];
+
+        const newMomFileName = `uploaded_mom_${id}.${momFileExtension}`;
         const newMomImgPath = `${__dirname}/${newMomFileName}`;
 
-        const dadImage = files.dadImage;
-        const newDadFileName = `uploaded_dad_${id}.${
-          dadImage.name.split(".").reverse()[0]
-        }`;
+        const newDadFileName = `uploaded_dad_${id}.${dadFileExtension}`;
         const newDadImgPath = `${__dirname}/${newDadFileName}`;
 
         // Move dadImage
@@ -34,10 +39,10 @@ export default function saveFiles(files, id) {
         // });
 
         // Move dadImage
-        await fs.rename(dadImage.path, newDadImgPath);
+        await fs.rename(dadImage[0].filepath, newDadImgPath);
 
         // Move momImage
-        await fs.rename(momImage.path, newMomImgPath);
+        await fs.rename(momImage[0].filepath, newMomImgPath);
 
         resolve({ mom_photo: newMomImgPath, dad_file: newDadImgPath });
       } catch (error) {

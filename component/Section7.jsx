@@ -140,7 +140,7 @@ function Section7() {
                   accept="image/*"
                 />
                 <div className="file-icon">
-                  <img src="/assets/icons/folder.png" alt="" srcset="" />
+                  <img src="/assets/icons/folder.png" alt="" srcSet="" />
                 </div>
               </div>
               <div className="file-input">
@@ -156,7 +156,7 @@ function Section7() {
                   accept="image/*"
                 />
                 <div className="file-icon">
-                  <img src="/assets/icons/folder.png" alt="" srcset="" />
+                  <img src="/assets/icons/folder.png" alt="" srcSet="" />
                 </div>
               </div>
 

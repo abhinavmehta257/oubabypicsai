@@ -28,19 +28,23 @@ export default async (req, res) => {
 
     let paths = await saveFiles(files, name)
       .then((json) => {
-        console.log(json);
+        console.log("photos", json);
+        return res.status(200).json(err);
       })
-      .then(async function (value) {
-        // await sendMail(value.mom_photo, value.dad_file, name, email).catch(
-        //   (err) => {
-        //     console.log(err);
-        //   }
-        // );
-        console.log(value);
-      })
+      // .then(async function (value) {
+      //   await sendMail(value.mom_photo, value.dad_file, name, email)
+      //     .catch((err) => {
+      //       console.log(err);
+      //     })
+      //     .then((value) => {
+      //       return res.status(200).json({ message: "Email sent to user" });
+      //     });
+      //   console.log(value);
+      // })
       .catch(function (err) {
         console.log("Promise Rejected");
         console.log(err);
+        return res.status(500).json(err);
       });
   });
   // Parse incoming form data using a Promise
@@ -48,5 +52,4 @@ export default async (req, res) => {
   //   if (err) return console.log(err);
   //   console.log("file deleted successfully");
   // });\
-  return res.json(json);
 };
