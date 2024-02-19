@@ -1,5 +1,4 @@
 import main from "./database/connect";
-import { products } from "./database/schema";
 
 const environment = process.env.ENVIRONMENT || "sandbox";
 const PAYPAL_CLIENT_ID = process.env.CLIENT_ID;
@@ -78,6 +77,7 @@ const createOrder = async (cart) => {
   const url = `${base}/v2/checkout/orders`;
   const payload = {
     intent: "CAPTURE",
+    shipping_preference: "NO_SHIPPING",
     purchase_units: [
       {
         amount: {
@@ -86,6 +86,16 @@ const createOrder = async (cart) => {
         },
       },
     ],
+    payment_source: {
+      paypal: {
+        experience_context: {
+          payment_method_preference: "IMMEDIATE_PAYMENT_REQUIRED",
+          brand_name: "Our baby pics ai",
+          shipping_preference: "NO_SHIPPING",
+          user_action: "PAY_NOW",
+        },
+      },
+    },
   };
 
   const response = await fetch(url, {

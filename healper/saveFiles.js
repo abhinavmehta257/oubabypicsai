@@ -44,7 +44,7 @@ export default function saveFiles(files, id) {
         // Move momImage
         await fs.rename(momImage[0].filepath, newMomImgPath);
 
-        resolve({ mom_photo: newMomImgPath, dad_file: newDadImgPath });
+        resolve({ mom_photo: newMomImgPath, dad_photo: newDadImgPath });
       } catch (error) {
         console.error("Error:", error);
         reject({ error: "Internal Server Error" });

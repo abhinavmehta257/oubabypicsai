@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import Paypal from "./Paypal";
 import Loader from "./blocks/Loader";
+import { useRouter } from "next/router";
 function Section7() {
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const router = useRouter();
+
+  const [isFormSubmitted, setIsFormSubmitted] = useState(null);
+  const [isTokenFetched, setIsTokenFetched] = useState(null);
   const [dadImage, setDadImage] = useState(null);
   const [momImage, setMomImage] = useState(null);
   const [customerName, setCustomerName] = useState(null);
   const [customerEmail, setCustomerEmail] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [orderID, setOrderId] = useState(null);
 
   const handleDadImageChange = (e) => {
     const file = e.target.files[0];
@@ -58,7 +63,7 @@ function Section7() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsFormSubmitted(true);
     if (!dadImage || !momImage || !customerName || !customerName) {
       setErrorMsg("please provide all the data");
       return;
@@ -77,11 +82,14 @@ function Section7() {
         body: formData,
       })
         .then((response) => {
-          setIsFormSubmitted(true);
+          setIsTokenFetched(true);
           return response.json();
         })
         .then((data) => {
           console.log(data);
+          setOrderId(data.order_id);
+          router.query.id = data.order_id;
+          router.push(router);
         });
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -113,7 +121,7 @@ function Section7() {
               44,000+ Photos Already Generated 👼
             </div>
           </div>
-          {isFormSubmitted ? (
+          {isTokenFetched ? (
             <Paypal />
           ) : (
             <form className="form" onSubmit={handleSubmit}>
@@ -130,7 +138,7 @@ function Section7() {
               <div className="file-input">
                 <label htmlFor="momImage">
                   {dadImage
-                    ? dadImage.name.substring(0, 30) + "..."
+                    ? dadImage.name.substring(0, 20) + "..."
                     : "Daddy's image"}
                 </label>
 
@@ -146,7 +154,7 @@ function Section7() {
               <div className="file-input">
                 <label htmlFor="momImage">
                   {momImage
-                    ? momImage.name.substring(0, 30) + "..."
+                    ? momImage.name.substring(0, 20) + "..."
                     : "Mommy's image"}
                 </label>
                 <input
@@ -160,15 +168,10 @@ function Section7() {
                 </div>
               </div>
 
-              {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
-              <button type="submit">
-                {isFormSubmitted ? (
-                  <Loader color={"white"} />
-                ) : (
-                  "Submit order $9.95"
-                )}
+              {errorMsg && <p className="error-msg">{errorMsg}</p>}
+              <button type="submit" disabled={isFormSubmitted}>
+                {isFormSubmitted ? "processing..." : "Submit order $9.95"}
               </button>
-              <p className="text-[12px] bg-black"></p>
             </form>
           )}
         </div>

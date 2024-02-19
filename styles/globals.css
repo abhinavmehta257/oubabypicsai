@@ -107,7 +107,7 @@ button {
   gap: 8px;
 }
 .container {
-  padding: 55px 160px;
+  padding: 55px 160px 20px 160px;
   scroll-behavior: smooth;
 }
 .section-1 .image img {
@@ -335,6 +335,7 @@ a {
   .section-7 .body {
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
   }
   .form {
     width: 100%;
@@ -424,7 +425,6 @@ a {
 }
 .section-7 .body {
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
 }
 form input[type="image"] {
@@ -455,7 +455,7 @@ input#file-upload-button {
 .footer {
   font-size: 12px;
   color: #666666;
-  padding: 56px 0;
+  padding: 64px 0 10px 0;
 }
 
 .file-input {
@@ -549,4 +549,26 @@ input[type="file"] {
   100% {
     transform: rotate(360deg);
   }
+}
+.success-icon,
+.failed-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 200px;
+  padding: 200px 28px;
+  max-width: 360px;
+  margin: auto;
+  text-align: center;
+}
+.success-icon h1 {
+  color: #4caf50;
+}
+.failed-icon h1 {
+  color: #ed1d24;
+}
+.error-msg {
+  color: #ed1d24;
+  font-size: 14px;
 }

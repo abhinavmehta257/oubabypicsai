@@ -1,7 +1,8 @@
 import createOrder from "../../healper/paypal";
 import saveFiles from "../../healper/saveFiles";
-import sendMail from "../../healper/sendMail";
-
+import Users from "../../healper/database/schema";
+import generateUUID from "../../healper/generateUUID";
+import main from "../../healper/database/connect";
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 var formidable = require("formidable");
 var fs = require("fs");
@@ -16,6 +17,7 @@ export default async (req, res) => {
   if (req.method !== "POST") {
     return;
   }
+  await main().catch((err) => console.error(err));
   const form = new formidable.IncomingForm();
   form.parse(req, async (err, fields, files) => {
     if (err) {
@@ -23,13 +25,30 @@ export default async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
       return;
     }
-    const name = fields.name;
-    const email = fields.email;
+    const name = fields.name[0];
+    const email = fields.email[0];
+    const id = generateUUID();
 
-    let paths = await saveFiles(files, name)
-      .then((json) => {
+    let paths = await saveFiles(files, id)
+      .then(async (json) => {
         console.log("photos", json);
-        return res.status(200).json(err);
+        const userData = new Users({
+          order_id: id,
+          name: name,
+          mom_photo: json.mom_photo,
+          dad_photo: json.dad_photo,
+          email: email,
+        });
+        await userData
+          .save()
+          .then((savedData) => {
+            console.log("Data inserted:", savedData);
+            return res.status(200).json(savedData);
+          })
+          .catch((error) => {
+            console.error("Error inserting data:", error);
+            return res.status(200).json(error);
+          });
       })
       // .then(async function (value) {
       //   await sendMail(value.mom_photo, value.dad_file, name, email)

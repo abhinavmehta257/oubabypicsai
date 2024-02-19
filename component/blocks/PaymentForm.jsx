@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import styles from "../../styles/PaymentForm.module.css";
-
 import {
   PayPalHostedFieldsProvider,
   PayPalHostedField,
   PayPalButtons,
   usePayPalHostedFields,
 } from "@paypal/react-paypal-js";
+import { useRouter } from "next/router";
 
-async function createOrderCallback() {
+async function createOrderCallback({ orderId }) {
   try {
     const response = await fetch("/api/orders", {
       method: "POST",
@@ -20,7 +20,7 @@ async function createOrderCallback() {
       body: JSON.stringify({
         cart: [
           {
-            id: "OBAI_001",
+            id: orderId,
             quantity: "1",
           },
         ],
@@ -94,7 +94,8 @@ async function onApproveCallback(data, actions) {
         orderData,
         JSON.stringify(orderData, null, 2)
       );
-      return `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`;
+      return { id: orderData.id, status: orderData.status };
+      // return `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`;
     }
   } catch (error) {
     return `Sorry, your transaction could not be processed...${error}`;
@@ -133,24 +134,38 @@ const SubmitPayment = ({ onHandleMessage }) => {
 };
 
 const Message = ({ content }) => {
-  return <p>{content}</p>;
+  return <p className="error-msg">{content}</p>;
 };
 
 export const PaymentForm = () => {
+  const router = useRouter();
   const [message, setMessage] = useState("");
+  function handleApproval(result) {
+    if (result.status == "COMPLETED") {
+      console.log(result);
+      router.push({
+        pathname: "/success",
+        query: { id: result.id, status: result.status },
+      });
+    } else {
+      setMessage(result);
+    }
+  }
   return (
     <div className={styles.form}>
+      pay continue payment with:
       <PayPalButtons
         style={{
-          shape: "rect",
-          //color:'blue' change the default color of the buttons
+          shape: "pill",
+          color: "gold",
           layout: "vertical", //default value. Can be changed to horizontal
         }}
         styles={{ marginTop: "4px", marginBottom: "4px" }}
         createOrder={createOrderCallback}
-        onApprove={async (data) => setMessage(await onApproveCallback(data))}
+        onApprove={async (data) =>
+          handleApproval(await onApproveCallback(data))
+        }
       />
-
       <PayPalHostedFieldsProvider createOrder={createOrderCallback}>
         <div style={{ marginTop: "4px", marginBottom: "4px" }}>
           <PayPalHostedField
@@ -197,7 +212,7 @@ export const PaymentForm = () => {
               className={styles.input}
             />
           </div>
-          <SubmitPayment onHandleMessage={setMessage} />
+          <SubmitPayment onHandleMessage={handleApproval} />
         </div>
       </PayPalHostedFieldsProvider>
       <Message content={message} />
