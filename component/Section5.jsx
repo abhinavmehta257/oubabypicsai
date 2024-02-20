@@ -7,7 +7,7 @@ const babyGeneratorReviews = [
     reviewImage: "./assets/reviews/review3.png",
     date: "15 March 2023",
     review:
-      "I currently have a 3 year old. I added a picture of my and her mother to ourbabyai.com and it was pretty close 🤯",
+      "I currently have a 3 year old. I added a picture of my and her mother to OurBabyPicAI.com and it was pretty close 🤯",
   },
   {
     name: "Alex Rodriguez",
