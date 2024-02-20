@@ -13,9 +13,6 @@ function SuccessIcon() {
         free to contact us at{" "}
         <a href="mailto:hey@ourbabypicsai.com">hey@ourbabypicsai.com</a>
       </p>
-      <a className="btn" href="/">
-        Back to home
-      </a>
     </div>
   );
 }

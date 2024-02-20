@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Paypal from "./Paypal";
 import Loader from "./blocks/Loader";
+import SuccessIcon from "./blocks/SuccessIcon"
 import { useRouter } from "next/router";
 function Section7() {
   const router = useRouter();
@@ -81,13 +82,13 @@ function Section7() {
         body: formData,
       })
         .then((response) => {
-          setIsTokenFetched(true);
           return response.json();
         })
         .then((data) => {
           console.log(data);
+          setIsTokenFetched(true);
           const url = "https://mehtavinav.gumroad.com/l/OurBabyPicsAI?email="+encodeURIComponent(data.email);
-          window.open(url, '_blank');
+          // window.open(url);
         });
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -96,6 +97,7 @@ function Section7() {
 
   return (
     <div id="section-7" className="section section-7">
+      <script src="https://gumroad.com/js/gumroad.js" defer></script>
       <div className="text">
         <div className="heading">
           See Your <span>Future Baby</span> With Our AI Baby Generator
@@ -121,7 +123,8 @@ function Section7() {
           </div>
           {isTokenFetched ? (
             // <Paypal />
-            <div>form submitted</div>
+            // <SuccessIcon />
+            <a class="gumroad-button" href="https://mehtavinav.gumroad.com/l/OurBabyPicsAI" data-gumroad-overlay-checkout="true">continue to pay with</a>
           ) : (
             <form className="form" onSubmit={handleSubmit}>
               <input

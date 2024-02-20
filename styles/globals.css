@@ -284,9 +284,6 @@ a {
     padding: 36px 24px;
     flex-direction: column;
   }
-  .section-1 .image {
-    /* order: -1; */
-  }
   .section-1 .heading {
     font-size: 32px;
   }
@@ -340,6 +337,11 @@ a {
   .form {
     width: 100%;
   }
+  .success-icon{
+  width: 100% !important;
+  padding-top: 24px;
+
+}
 }
 
 /* according */
@@ -550,17 +552,13 @@ input[type="file"] {
     transform: rotate(360deg);
   }
 }
-.success-icon,
-.failed-icon {
+.success-icon{
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   flex-direction: column;
-  margin-top: 200px;
-  padding: 200px 28px;
-  max-width: 360px;
-  margin: auto;
   text-align: center;
+  width: 40%;
 }
 .success-icon h1 {
   color: #4caf50;
@@ -571,4 +569,9 @@ input[type="file"] {
 .error-msg {
   color: #ed1d24;
   font-size: 14px;
+}
+.gumroad-button{
+  height: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
