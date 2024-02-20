@@ -25,7 +25,7 @@ const Users = new mongoose.Schema({
   name: {
     type: String,
   },
-  emial: {
+  email: {
     type: String,
   },
   mom_photo: {

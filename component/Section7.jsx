@@ -12,7 +12,6 @@ function Section7() {
   const [customerName, setCustomerName] = useState(null);
   const [customerEmail, setCustomerEmail] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
-  const [orderID, setOrderId] = useState(null);
 
   const handleDadImageChange = (e) => {
     const file = e.target.files[0];
@@ -87,9 +86,8 @@ function Section7() {
         })
         .then((data) => {
           console.log(data);
-          setOrderId(data.order_id);
-          router.query.id = data.order_id;
-          router.push(router);
+          const url = "https://mehtavinav.gumroad.com/l/OurBabyPicsAI?email="+encodeURIComponent(data.email);
+          window.open(url, '_blank');
         });
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -122,7 +120,8 @@ function Section7() {
             </div>
           </div>
           {isTokenFetched ? (
-            <Paypal />
+            // <Paypal />
+            <div>form submitted</div>
           ) : (
             <form className="form" onSubmit={handleSubmit}>
               <input

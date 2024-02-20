@@ -1,50 +1,35 @@
 // var fs = require("fs");
 import fs from "fs/promises";
+var cloudinary = require('cloudinary').v2;
 
 export default function saveFiles(files, id) {
+  cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.COUDINARY_API_KEY,
+  api_secret: process.env.COUDINARY_API_SECRET
+});
+let mom_photo,dad_photo;
   return new Promise(
     async (resolve, reject) => {
       try {
         const momImage = files.momImage;
         const dadImage = files.dadImage;
-        console.log(momImage[0].filepath, dadImage[0].filepath, id);
+        await cloudinary.uploader.upload(momImage[0].filepath, { tags: id }, function (err, image) {
+          console.log();
+          console.log("** File Upload");
+          if (err) { console.warn(err); }
+          console.log("image uploaded");
+          mom_photo = image.url;
+        }); 
+        await cloudinary.uploader.upload(dadImage[0].filepath, { tags: id }, function (err, image) {
+          console.log();
+          console.log("** File Upload");
+          if (err) { console.warn(err); }
+          console.log("image uploaded");
+          dad_photo = image.url;
+        });        
 
-        const momFileExtension = momImage[0].originalFilename
-          .split(".")
-          .reverse()[0];
-        const dadFileExtension = dadImage[0].originalFilename
-          .split(".")
-          .reverse()[0];
-
-        const newMomFileName = `uploaded_mom_${id}.${momFileExtension}`;
-        const newMomImgPath = `${__dirname}/${newMomFileName}`;
-
-        const newDadFileName = `uploaded_dad_${id}.${dadFileExtension}`;
-        const newDadImgPath = `${__dirname}/${newDadFileName}`;
-
-        // Move dadImage
-        // await fs.rename(dadImage.path, newDadImgPath, (err) => {
-        //   if (err) {
-        //     console.error("Error moving file:", err);
-        //     res.status(500).json({ error: "Internal Server Error" });
-        //     return;
-        //   }
-        //   fs.rename(momImage.path, newMomImgPath, (err) => {
-        //     if (err) {
-        //       console.error("Error moving file:", err);
-        //       res.status(500).json({ error: "Internal Server Error" });
-        //       return;
-        //     }
-        //   });
-        // });
-
-        // Move dadImage
-        await fs.rename(dadImage[0].filepath, newDadImgPath);
-
-        // Move momImage
-        await fs.rename(momImage[0].filepath, newMomImgPath);
-
-        resolve({ mom_photo: newMomImgPath, dad_photo: newDadImgPath });
+        resolve({ mom_photo,dad_photo });
       } catch (error) {
         console.error("Error:", error);
         reject({ error: "Internal Server Error" });
@@ -55,3 +40,4 @@ export default function saveFiles(files, id) {
     }
   );
 }
+

@@ -3,6 +3,7 @@ import saveFiles from "../../healper/saveFiles";
 import Users from "../../healper/database/schema";
 import generateUUID from "../../healper/generateUUID";
 import main from "../../healper/database/connect";
+import sendMail from "../../healper/sendMail";
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 var formidable = require("formidable");
 var fs = require("fs");
@@ -32,6 +33,15 @@ export default async (req, res) => {
     let paths = await saveFiles(files, id)
       .then(async (json) => {
         console.log("photos", json);
+        await sendMail(
+          json.mom_photo,
+          json.dad_photo,
+            name,
+            email
+          )
+            .catch((err) => {
+              console.log(err);
+            })
         const userData = new Users({
           order_id: id,
           name: name,
@@ -39,6 +49,7 @@ export default async (req, res) => {
           dad_photo: json.dad_photo,
           email: email,
         });
+        
         await userData
           .save()
           .then((savedData) => {
@@ -50,16 +61,6 @@ export default async (req, res) => {
             return res.status(200).json(error);
           });
       })
-      // .then(async function (value) {
-      //   await sendMail(value.mom_photo, value.dad_file, name, email)
-      //     .catch((err) => {
-      //       console.log(err);
-      //     })
-      //     .then((value) => {
-      //       return res.status(200).json({ message: "Email sent to user" });
-      //     });
-      //   console.log(value);
-      // })
       .catch(function (err) {
         console.log("Promise Rejected");
         console.log(err);

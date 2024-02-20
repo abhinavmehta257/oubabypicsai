@@ -8,7 +8,8 @@ import {
 } from "@paypal/react-paypal-js";
 import { useRouter } from "next/router";
 
-async function createOrderCallback({ orderId }) {
+async function createOrderCallback() {
+  
   try {
     const response = await fetch("/api/orders", {
       method: "POST",
@@ -20,7 +21,7 @@ async function createOrderCallback({ orderId }) {
       body: JSON.stringify({
         cart: [
           {
-            id: orderId,
+            id: 'OBPA_001',
             quantity: "1",
           },
         ],
@@ -46,8 +47,10 @@ async function createOrderCallback({ orderId }) {
 }
 
 async function onApproveCallback(data, actions) {
+  const router = useRouter();
+  const { id } = router;
   try {
-    const response = await fetch(`/api/orders/${data.orderID}/capture`, {
+    const response = await fetch(`/api/orders/${data.orderID}/capture?id=${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
