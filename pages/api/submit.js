@@ -23,7 +23,7 @@ export default async (req, res) => {
   form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error("Error parsing form:", err);
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({ error: "Internal Server Error" , err:err});
       return;
     }
     const name = fields.name[0];
