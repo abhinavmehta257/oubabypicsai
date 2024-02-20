@@ -87,7 +87,7 @@ function Section7() {
         .then((data) => {
           console.log(data);
           setIsTokenFetched(true);
-          const url = "https://mehtavinav.gumroad.com/l/OurBabyPicsAI?email="+encodeURIComponent(data.email);
+          const url = `https://mehtavinav.gumroad.com/l/OurBabyPicsAI?email=${customerEmail}`+encodeURIComponent(data.email);
           // window.open(url);
         });
     } catch (error) {
@@ -124,7 +124,7 @@ function Section7() {
           {isTokenFetched ? (
             // <Paypal />
             // <SuccessIcon />
-            <a class="gumroad-button" href="https://mehtavinav.gumroad.com/l/OurBabyPicsAI" data-gumroad-overlay-checkout="true">continue to pay with</a>
+            <a class="gumroad-button" href={`https://mehtavinav.gumroad.com/l/OurBabyPicsAI/?email=${customerEmail}`} data-gumroad-overlay-checkout="true">continue to pay with</a>
           ) : (
             <form className="form" onSubmit={handleSubmit}>
               <input
