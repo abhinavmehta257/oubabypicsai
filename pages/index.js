@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import Section1 from "../component/Section1";
 import Section2 from "../component/Section2";
 import Section3 from "../component/Section3";
@@ -9,10 +8,13 @@ import Section6 from "../component/Section6";
 import Section7 from "../component/Section7";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
-
+ 
 export default function Home() {
   return (
     <>
+    <Head>
+      <title>Our Baby Pics Ai</title>
+    </Head>
       <Header></Header>
       <div className="container">
         <Section1></Section1>

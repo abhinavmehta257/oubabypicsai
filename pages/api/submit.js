@@ -1,6 +1,4 @@
-import createOrder from "../../healper/paypal";
 import saveFiles from "../../healper/saveFiles";
-import Users from "../../healper/database/schema";
 import generateUUID from "../../healper/generateUUID";
 import main from "../../healper/database/connect";
 import sendMail from "../../healper/sendMail";
@@ -33,35 +31,14 @@ export default async (req, res) => {
     let paths = await saveFiles(files, id)
       .then(async (json) => {
         console.log("photos", json);
-        await sendMail(
+        const response = await sendMail(
+          id,
           json.mom_photo,
           json.dad_photo,
             name,
             email
-          ).then(async ()=>{
-            const userData = new Users({
-              order_id: id,
-              name: name,
-              mom_photo: json.mom_photo,
-              dad_photo: json.dad_photo,
-              email: email,
-            });
-            
-            await userData
-              .save()
-              .then((savedData) => {
-                console.log("Data inserted:", savedData);
-                return res.status(200).json(savedData);
-              })
-              .catch((error) => {
-                console.error("Error inserting data:", error);
-                return res.status(200).json(error);
-              });
-          })
-            .catch((err) => {
-              console.log(err);
-            })
-        
+          )
+        return res.status(200).json(response)
       })
       .catch(function (err) {
         console.log("Promise Rejected");
