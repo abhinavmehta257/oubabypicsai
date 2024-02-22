@@ -47,7 +47,7 @@ function Section6() {
       <h2 className="heading">Frequently Asked Questions</h2>
       <div>
         Don't see what you want to ask here? Say{" "}
-        <a href="mailto:hey@ourbabypicai.com">hey@ourbabypicai.com</a> to ask
+        <a href="mailto:hey@ourbabypicai.store">hey@ourbabypicai.store</a> to ask
         us!
       </div>
       <div className="accordion">

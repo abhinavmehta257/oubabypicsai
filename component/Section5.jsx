@@ -7,7 +7,7 @@ const babyGeneratorReviews = [
     reviewImage: "./assets/reviews/review3.png",
     date: "15 March 2023",
     review:
-      "I currently have a 3 year old. I added a picture of my and her mother to OurBabyPicAI.com and it was pretty close 🤯",
+      "I currently have a 3 year old. I added a picture of my and her mother to ourbabypicai.store and it was pretty close 🤯",
   },
   {
     name: "Alex Rodriguez",
@@ -15,7 +15,7 @@ const babyGeneratorReviews = [
     reviewImage: "./assets/reviews/review4.png",
     date: "20 June 2023",
     review:
-      "As an expecting father, I decided to explore the AI baby generator on ourbabypicai.com. The generated baby image was adorable and captured the essence of both my wife and me. Ourbabypicai.com made the entire process easy and enjoyable.",
+      "As an expecting father, I decided to explore the AI baby generator on ourbabypicai.store. The generated baby image was adorable and captured the essence of both my wife and me. ourbabypicai.store made the entire process easy and enjoyable.",
   },
   {
     name: "Emily Chang",
@@ -23,7 +23,7 @@ const babyGeneratorReviews = [
     reviewImage: "./assets/reviews/review1-img.png",
     date: "5 October 2023",
     review:
-      "The AI baby generator on ourbabypicai.com is truly impressive! It created a baby picture that seamlessly combined my features with my husband's. The attention to detail is remarkable, and ourbabypicai.com provides a user-friendly experience.",
+      "The AI baby generator on ourbabypicai.store is truly impressive! It created a baby picture that seamlessly combined my features with my husband's. The attention to detail is remarkable, and ourbabypicai.store provides a user-friendly experience.",
   },
   {
     name: "Ryan Patel",
@@ -31,7 +31,7 @@ const babyGeneratorReviews = [
     reviewImage: "/assets/reviews/review-2.png",
     date: "12 December 2023",
     review:
-      "Using ourbabypicai.com was a joy! The AI baby generator produced a charming baby picture by blending mine and my partner's features seamlessly. The results were beyond our expectations, and the process on ourbabypicai.com was quick and user-friendly.",
+      "Using ourbabypicai.store was a joy! The AI baby generator produced a charming baby picture by blending mine and my partner's features seamlessly. The results were beyond our expectations, and the process on ourbabypicai.store was quick and user-friendly.",
   },
   // Add more reviews as needed
 ];
