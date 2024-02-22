@@ -38,28 +38,30 @@ export default async (req, res) => {
           json.dad_photo,
             name,
             email
-          )
+          ).then(async ()=>{
+            const userData = new Users({
+              order_id: id,
+              name: name,
+              mom_photo: json.mom_photo,
+              dad_photo: json.dad_photo,
+              email: email,
+            });
+            
+            await userData
+              .save()
+              .then((savedData) => {
+                console.log("Data inserted:", savedData);
+                return res.status(200).json(savedData);
+              })
+              .catch((error) => {
+                console.error("Error inserting data:", error);
+                return res.status(200).json(error);
+              });
+          })
             .catch((err) => {
               console.log(err);
             })
-        const userData = new Users({
-          order_id: id,
-          name: name,
-          mom_photo: json.mom_photo,
-          dad_photo: json.dad_photo,
-          email: email,
-        });
         
-        await userData
-          .save()
-          .then((savedData) => {
-            console.log("Data inserted:", savedData);
-            return res.status(200).json(savedData);
-          })
-          .catch((error) => {
-            console.error("Error inserting data:", error);
-            return res.status(200).json(error);
-          });
       })
       .catch(function (err) {
         console.log("Promise Rejected");
