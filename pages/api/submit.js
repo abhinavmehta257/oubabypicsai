@@ -37,10 +37,8 @@ export default async (req, res) => {
           json.dad_photo,
             name,
             email
-          ).then((response)=>{
+          )
         return res.status(200).json(response)
-
-          })
       })
       .catch(function (err) {
         console.log("Promise Rejected");
