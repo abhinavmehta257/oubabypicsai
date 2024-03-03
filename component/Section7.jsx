@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Paypal from "./Paypal";
-import Loader from "./blocks/Loader";
-import SuccessIcon from "./blocks/SuccessIcon"
 import { useRouter } from "next/router";
+import { sendGTMEvent } from '@next/third-parties/google'
 function Section7() {
   const router = useRouter();
 
@@ -87,6 +85,7 @@ function Section7() {
         .then((data) => {
           console.log(data);
           setIsTokenFetched(true);
+          sendGTMEvent({ event: 'Form submitted', value: customerEmail })
           const url = `https://mehtavinav.gumroad.com/l/OurBabyPicsAI?email=${customerEmail}`+encodeURIComponent(data.email);
           // window.open(url);
         });

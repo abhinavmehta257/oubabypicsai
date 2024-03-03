@@ -8,6 +8,7 @@ import Section6 from "../component/Section6";
 import Section7 from "../component/Section7";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
+
  
 export default function Home() {
   return (
