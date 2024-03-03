@@ -8,6 +8,7 @@ import Section6 from "../component/Section6";
 import Section7 from "../component/Section7";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
+import ShareLinks from "../component/blocks/ShareLinks";
 
  
 export default function Home() {
@@ -27,6 +28,8 @@ export default function Home() {
         <Section7></Section7>
         <Footer></Footer>
       </div>
+      <ShareLinks/>
+
     </>
   );
 }

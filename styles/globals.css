@@ -575,3 +575,8 @@ input[type="file"] {
     margin-top: auto;
     margin-bottom: auto;
 }
+.share-btns{
+  position: fixed;
+  top: 150px;
+  right: 0;
+}
